@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="{{URL::asset('assets/vendor/font-awesome/css/font-awesome.css')}}" />
     <link rel="stylesheet" href="{{URL::asset('assets/vendor/magnific-popup/magnific-popup.css')}}" />
     <link rel="stylesheet" href="{{URL::asset('assets/vendor/bootstrap-datepicker/css/datepicker3.css')}}" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
     <!-- Specific Page Vendor CSS -->
     @yield('page_css')
@@ -129,25 +130,38 @@
                                     <span>Mailbox</span>
                                 </a>
                             </li>
-                            <li class="nav-parent">
+                            <li class="nav-parent {{$menu_parent=='article_category'?'nav-expanded nav-active' : ''}}">
                                 <a>
                                     <i class="fa fa-map-marker" aria-hidden="true"></i>
-                                    <span>Maps</span>
+                                    <span>Quản lý danh mục bài viết</span>
                                 </a>
                                 <ul class="nav nav-children">
-                                    <li>
-                                        <a href="maps-google-maps.html">
-                                            Basic
+                                    <li class="{{($menu_parent == 'article_category' && $menu_action == 'create')?'nav-active' : ''}}">
+                                        <a href="/admin/article-categories/create">
+                                            Thêm mới
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href="maps-google-maps-builder.html">
-                                            Map Builder
+                                    <li class="{{($menu_parent == 'article_category' && $menu_action == 'list')?'nav-active' : ''}}">
+                                        <a href="/admin/article-categories">
+                                            Danh sách
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href="maps-vector.html">
-                                            Vector
+                                </ul>
+                            </li>
+                            <li class="nav-parent {{$menu_parent=='article'?'nav-expanded nav-active' : ''}}">
+                                <a>
+                                    <i class="fa fa-list" aria-hidden="true"></i>
+                                    <span>Quản lý bài viết</span>
+                                </a>
+                                <ul class="nav nav-children">
+                                    <li class="{{($menu_parent == 'article' && $menu_action == 'create')?'nav-active' : ''}}">
+                                        <a href="/admin/articles/create">
+                                            Thêm mới
+                                        </a>
+                                    </li>
+                                    <li class="{{($menu_parent == 'article' && $menu_action == 'list')?'nav-active' : ''}}">
+                                        <a href="/admin/articles">
+                                            Danh sách
                                         </a>
                                     </li>
                                 </ul>
@@ -243,7 +257,8 @@
 <script src="{{URL::asset('assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js')}}"></script>
 <script src="{{URL::asset('assets/vendor/magnific-popup/magnific-popup.js')}}"></script>
 <script src="{{URL::asset('assets/vendor/jquery-placeholder/jquery.placeholder.js')}}"></script>
-
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <!-- Specific Page Vendor -->
 @yield('page_js')
 

@@ -1,9 +1,10 @@
 <?php
 
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\CrudController;
+use App\Http\Controllers\ArticleCategoryController;
 use App\Http\Controllers\LayoutController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ShoppingCartController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
@@ -23,9 +24,6 @@ Route::get('/admin/products', [ProductController::class, 'index']);
 Route::get('/admin/products/create', [ProductController::class, 'create']);
 Route::post('/admin/products', [ProductController::class, 'store']);
 
-Route::get('/admin/crud/create', [CrudController::class, 'create']);
-Route::post('/admin/crud', [CrudController::class, 'store']);
-
 Route::get('/welcome', [WelcomeController::class, 'welcome']);
 
 Route::get('/users/login', [UserController::class, 'login']);
@@ -41,3 +39,18 @@ Route::get('/demo/page3', [LayoutController::class, 'page3']);
 Route::get('/admin/index', [AdminController::class, 'showIndex']);
 Route::get('/admin/list', [AdminController::class, 'showList']);
 Route::get('/admin/form', [AdminController::class, 'showForm']);
+
+//Route::get('/admin/article-categories/create', [ArticleCategoryController::class, 'create']);
+//Route::post('/admin/article-categories', [ArticleCategoryController::class, 'store']);
+//Route::get('/admin/article-categories', [ArticleCategoryController::class, 'index']);
+//Route::get('/admin/article-categories/{id}', [ArticleCategoryController::class, 'show']);
+//Route::get('/admin/article-categories/{id}/edit', [ArticleCategoryController::class, 'edit']);
+//Route::put('/admin/article-categories/{id}', [ArticleCategoryController::class, 'update']);
+//Route::delete('/admin/article-categories/{id}', [ArticleCategoryController::class, 'destroy']);
+Route::resource('admin/article-categories', 'App\Http\Controllers\ArticleCategoryController');
+Route::resource('admin/articles', 'App\Http\Controllers\ArticleController');
+
+Route::get('/cart/show', [ShoppingCartController::class, 'show']);
+Route::get('/cart/add', [ShoppingCartController::class, 'add']);
+Route::get('/cart/update', [ShoppingCartController::class, 'update']);
+Route::get('/cart/remove', [ShoppingCartController::class, 'remove']);

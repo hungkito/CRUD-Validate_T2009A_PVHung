@@ -7,7 +7,7 @@
 
 @section('content')
     <header class="page-header">
-        <h2>List Product</h2>
+        <h2>Danh sách danh mục bài viết</h2>
 
         <div class="right-wrapper pull-right">
             <ol class="breadcrumbs">
@@ -27,16 +27,14 @@
     <!-- start: page -->
     <section class="panel">
         <header class="panel-heading">
-            <h2 class="panel-title">Danh sách product hiện có</h2>
+            <h2 class="panel-title">Danh sách hiện có</h2>
         </header>
         <div class="panel-body">
             <table class="table table-bordered table-striped mb-none" id="datatable-default">
                 <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Thumbnail</th>
                     <th>Name</th>
-                    <th>Price</th>
                     <th>Action</th>
                 </tr>
                 </thead>
@@ -44,11 +42,14 @@
                 @foreach($list as $item)
                     <tr class="gradeU">
                         <td>{{$item->id}}</td>
-                        <td><img class="circular-bar" width="100px" src="{{$item->thumbnail}}" alt="{{$item->name}}"></td>
-                        <td>{{$item->name}}</td>
-                        <td>{{$item->price}}</td>
+                        <td><a href="/admin/article-categories/{{$item->id}}">{{$item->name}}</a></td>
                         <td>
-                            <a class="btn-sm btn-primary" href="/cart/add?id={{$item->id}}$quantity=1">Add to cart</a>
+                            <a class="btn btn-sm btn-primary" href="/admin/article-categories/{{$item->id}}/edit">Sửa</a>
+                            <form style="display: inline" action="/admin/article-categories/{{$item->id}}" method="post">
+                                @method('delete')
+                                @csrf
+                                <button class="btn btn-sm btn-danger" onclick="return confirm('Chắc chắc xoá danh muc này?')">Xoá</button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach
@@ -56,7 +57,6 @@
             </table>
             <div class="row datatables-footer">
                 <div class="col-sm-12 col-md-6">
-                    <div class="dataTables_info" id="datatable-default_info" role="status" aria-live="polite">Showing 1 to 5 of 5 entries</div>
                 </div>
                 <div class="col-sm-12 col-md-6">
                     <div class="dataTables_paginate paging_bs_normal" id="datatable-default_paginate">

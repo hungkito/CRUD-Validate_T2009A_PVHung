@@ -9,6 +9,7 @@ use Illuminate\Support\Carbon;
 
 class ProductController extends Controller
 {
+    public static $menu_parent = 'product';
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +17,11 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('admin.products.index', ['list'=> Product::paginate(2)]);
+        return view('admin.products.index', [
+            'list'=> Product::paginate(2),
+            'menu_parent' => self::$menu_parent,
+            'menu_action' => 'list',
+            ]);
     }
 
     /**
@@ -26,7 +31,10 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('admin.products.form');
+        return view('admin.products.form', [
+            'menu_parent' => self::$menu_parent,
+            'menu_action' => 'list',
+        ]);
     }
 
     /**
