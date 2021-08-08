@@ -23,11 +23,11 @@ class ShoppingCartController extends Controller
         ]);
     }
 
-    public function add(Request $request){
+    public function add($productId,$productQuantity){
         // lấy thông tin sản phẩm.
-        $productId = $request->get('id');
+//        $productId = $request->get('id');
         // lấy số lượng sản phẩm cần thêm vào giỏ hàng.
-        $productQuantity = $request->get('quantity');
+//        $productQuantity = $request->get('quantity');
         if ($productQuantity <= 0){
             return view('admin.errors.404', [
                 'msg' => 'Số lượng sản phẩm phải lớn hơn 0.',
@@ -38,7 +38,7 @@ class ShoppingCartController extends Controller
         // 1. Kiểm tra sự tồn tại của sản phẩm.
         $obj = Product::find($productId);
         // nếu khôn tồn tại thì trả về 404.
-        if ($obj == nul) {
+        if ($obj == null) {
             return view('admin.errors.404', [
                 'msg' => 'Không tìm thấy sản phẩm.',
                 'menu_parent' => self::$menu_parent,
@@ -66,12 +66,12 @@ class ShoppingCartController extends Controller
             // và lưu lại vào đối tượng shopping cart.
             $shoppingCart[$productId] = $existingCartItem;
         } else {
-            // nếu như có tạo ra một cartItem mới, có thông tin trùng với thông tin sản phẩm từ trong db.
-            $cartItem = new stdClass();
+            // nếu như chưa có tạo ra một cartItem mới, có thông tin trùng với thông tin sản phẩm từ trong db.
+            $cartItem = new Product();
             $cartItem->id = $obj->id;
             $cartItem->name = $obj->name;
             $cartItem->unitPrice = $obj->price;
-            $cartItem->quantity = $obj->productQuantity;
+            $cartItem->quantity = $productQuantity;
             // đưa cartItem vào trong shoppingCart.
             $shoppingCart[$productId] = $cartItem;
         }
@@ -91,7 +91,7 @@ class ShoppingCartController extends Controller
             ]);
         }
         $obj = Product::find($productId);
-        if ($obj == nul) {
+        if ($obj == null) {
             return view('admin.errors.404', [
                 'msg' => 'Không tìm thấy sản phẩm.',
                 'menu_parent' => self::$menu_parent,
@@ -126,5 +126,27 @@ class ShoppingCartController extends Controller
         unset($shoppingCart[$productId]); //Xoá giá trị theo key ở trong map với php.
         Session::put('shoppingCart', $shoppingCart);
         return redirect('/cart/show');
+    }
+    public function orderDetail(Request $request){
+        $ShipName =$request->get('ShipName');
+//        $ShipName ="a";
+        $ShipAddress= $request->get('ShipAddress');
+        $ShipPhone= $request->get('ShipPhone');
+        $shoppingCart = null;
+        if (Session::has('shoppingCart')){
+            $shoppingCart = Session::get('shoppingCart');
+        }else{
+            $shoppingCart = [];
+        }
+//        return view('cart', [
+//            'shoppingCart' => $shoppingCart
+//        ]);
+
+        return view('user.orderDetail',[
+            'ShipName'=>$ShipName,
+            'ShipAddress'=>$ShipAddress,
+            'ShipPhone'=>$ShipPhone,
+            'shoppingCart'=>$shoppingCart
+        ]);
     }
 }

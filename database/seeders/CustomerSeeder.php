@@ -14,7 +14,7 @@ class CustomerSeeder extends Seeder
     public function run()
     {
         $tableName = 'customers';
-        \Illuminate\Support\Facades\DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+//        \Illuminate\Support\Facades\DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         \Illuminate\Support\Facades\DB::table($tableName)->truncate();
 
         \Illuminate\Support\Facades\DB::table($tableName)->insert([
@@ -43,6 +43,6 @@ class CustomerSeeder extends Seeder
                 'updated_at' => \Illuminate\Support\Carbon::now()->addDays(-9),
             ]
         ]);
-        \Illuminate\Support\Facades\DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+//        \Illuminate\Support\Facades\DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }
 }

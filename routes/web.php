@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ArticleCategoryController;
+use App\Http\Controllers\CustomerOrderController;
 use App\Http\Controllers\LayoutController;
+use App\Http\Controllers\PayPalController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ShoppingCartController;
 use App\Http\Controllers\UserController;
@@ -21,8 +23,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/admin/products', [ProductController::class, 'index']);
-Route::get('/admin/products/create', [ProductController::class, 'create']);
 Route::post('/admin/products', [ProductController::class, 'store']);
+
+Route::get('/admin/products/create', [ProductController::class, 'create']);
 
 Route::get('/welcome', [WelcomeController::class, 'welcome']);
 
@@ -51,6 +54,12 @@ Route::resource('admin/article-categories', 'App\Http\Controllers\ArticleCategor
 Route::resource('admin/articles', 'App\Http\Controllers\ArticleController');
 
 Route::get('/cart/show', [ShoppingCartController::class, 'show']);
-Route::get('/cart/add', [ShoppingCartController::class, 'add']);
-Route::get('/cart/update', [ShoppingCartController::class, 'update']);
+Route::get('/cart/add/{id}/{quantity}', [ShoppingCartController::class, 'add']);
+Route::post('/cart/update', [ShoppingCartController::class, 'update']);
 Route::get('/cart/remove', [ShoppingCartController::class, 'remove']);
+
+Route::post('/orders',[ShoppingCartController::class, 'orderDetail']);
+
+Route::get('payment', [PayPalController::class, 'payment'])->name('payment');
+Route::get('cancel', [PayPalController::class, 'cancel'])->name('payment.cancel');
+Route::get('payment/success', [PayPalController::class, 'success'])->name('payment.success');

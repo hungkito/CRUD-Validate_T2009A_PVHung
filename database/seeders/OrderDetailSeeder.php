@@ -14,7 +14,7 @@ class OrderDetailSeeder extends Seeder
     public function run()
     {
         $tableName = 'order_details';
-        \Illuminate\Support\Facades\DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+//        \Illuminate\Support\Facades\DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         \Illuminate\Support\Facades\DB::table($tableName)->truncate();
 
         \Illuminate\Support\Facades\DB::table($tableName)->insert([
@@ -49,6 +49,6 @@ class OrderDetailSeeder extends Seeder
                 'unitPrice' => 30000
             ],
         ]);
-        \Illuminate\Support\Facades\DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+//        \Illuminate\Support\Facades\DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }
 }

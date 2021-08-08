@@ -30,6 +30,18 @@
             <h2 class="panel-title">Danh sách product hiện có</h2>
         </header>
         <div class="panel-body">
+            @if(\Illuminate\Support\Facades\Session::has('successMsg'))
+                <div class="alert alert-success">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
+                    <p>{{\Illuminate\Support\Facades\Session::get('successMsg')}}</p>
+                </div>
+            @endif
+            @if(\Illuminate\Support\Facades\Session::has('errorMsg'))
+                <div class="alert alert-danger">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
+                    <p>{{\Illuminate\Support\Facades\Session::get('errorMsg')}}</p>
+                </div>
+            @endif
             <table class="table table-bordered table-striped mb-none" id="datatable-default">
                 <thead>
                 <tr>
@@ -48,9 +60,10 @@
                         <td>{{$item->name}}</td>
                         <td>{{$item->price}}</td>
                         <td>
-                            <a class="btn-sm btn-primary" href="/cart/add?id={{$item->id}}$quantity=1">Add to cart</a>
+                            <a class="btn-sm btn-primary" href="/cart/add/{{$item->id}}/1">Add to cart</a>
                         </td>
                     </tr>
+                    </form>
                 @endforeach
                 </tbody>
             </table>
